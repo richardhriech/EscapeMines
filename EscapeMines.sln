@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EscapeMines", "EscapeMines\EscapeMines.csproj", "{894D5DE8-8792-41DB-97AC-6CBA97BEDF34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{751B3A92-F51A-4F70-A27C-72696E163459}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{751B3A92-F51A-4F70-A27C-72696E163459}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{A3B27DEE-16B3-45BE-A3CA-D01871BDAF35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{A3B27DEE-16B3-45BE-A3CA-D01871BDAF35}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{504F7464-4ABA-4F87-9EB0-F48CA1B24A5E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{A3B27DEE-16B3-45BE-A3CA-D01871BDAF35}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3B27DEE-16B3-45BE-A3CA-D01871BDAF35}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3B27DEE-16B3-45BE-A3CA-D01871BDAF35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{504F7464-4ABA-4F87-9EB0-F48CA1B24A5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{504F7464-4ABA-4F87-9EB0-F48CA1B24A5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{504F7464-4ABA-4F87-9EB0-F48CA1B24A5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{504F7464-4ABA-4F87-9EB0-F48CA1B24A5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
