@@ -5,14 +5,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Tests.Data
 {
     [TestClass]
-    public class FileReaderTest
+    public class DataProviderFromFileTest
     {
         [TestMethod]
         public void ReadLines_WrongPath_ShouldThrowFileNotFoundException()
         {
-            IFileReader fileReader = new FileReader();
+            IDataProvider dataProvider = new DataProviderFromFile(@"A:\ThisFileDoesntExist");
 
-            Assert.ThrowsException<FileNotFoundException>(() => fileReader.ReadLines(@"A:\ThisFileDoesntExist"));
+            Assert.ThrowsException<FileNotFoundException>(() => dataProvider.GetRawData());
         }
     }
 }

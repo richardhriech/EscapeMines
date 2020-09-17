@@ -10,10 +10,10 @@ namespace EscapeMines
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            FileReader fr = new FileReader();
-            var asd = fr.ReadLines(@"C:\Users\richa\OneDrive - Mortoff\Backup\Desktop\asd.txt");
-
+            Console.WriteLine("Enter path for the game config file: ");
+            string gameConfigFilePath = Console.ReadLine();
+            var game = Game.Instance;
+            game.Setup(gameConfigFilePath);
         }
     }
 }

@@ -13,5 +13,13 @@ namespace EscapeMines
         public Position Position { get; set; }
 
         public Direction Direction { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            var other = obj as Player;
+
+            return Equals(Position, other.Position)
+                && Equals(Direction, other.Direction);
+        }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
+using Common;
 using Data;
 
 namespace EscapeMines
@@ -19,21 +21,25 @@ namespace EscapeMines
 
         public static Game Instance { get; } = new Game();
 
-        public List<string> ConfigData { get; set; }
+        public Board Board { get; set; }
+        public List<Move> Moves { get; set; }
 
-        public void LoadConfigDataFromFile(string path, IFileReader fileReader)
+        public void Setup(string path)
         {
-            string errorMessage = String.Empty;
-
-            try
-            {
-                ConfigData = fileReader.ReadLines(path, configFileLineCount);
-            }
-            catch (FileNotFoundException)
-            {
-                errorMessage += "The file on the given path does not exist.";
-            }
-            
+            IDataProvider dataProvider = new DataProviderFromFile(path);
+            IGameConfigParser configParser = new GameConfigParserFromFile(dataProvider);
+            GameConfig config = configParser.ParseConfig();
+            Board = new Board(config);
+            Moves = config.Moves;
         }
+
+        public void PlayMoves()
+        {
+            foreach (Move move in Moves)
+            {
+                
+            }
+        }
+
     }
 }
