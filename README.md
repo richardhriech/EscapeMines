@@ -1,9 +1,7 @@
 # EscapeMines
-Home assignment
+## This is a home assignment for a job application.
 
-This is a home assignment for a job application.
-
-Things that can be improved:
+## Things that can be improved:
 - Using dependency injection for even better separation of concerns. The size and the scope of this project didn't require DI,
 but if it was needed, it could be easily implemented in the current structure.
 - Using automapper. There were only a few cases where it could have been useful, so I did the mapping manually. Again, if
