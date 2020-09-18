@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using Common;
 using Common.Enums;
 
@@ -64,6 +63,7 @@ namespace EscapeMines
                 else
                     throw new ArgumentException("Mine position must be inside the map.");
         }
+
         private void SetExitPosition()
         {
             if (IsValidCoord(config.ExitPosition.X, config.ExitPosition.Y))
@@ -75,6 +75,7 @@ namespace EscapeMines
                 throw new ArgumentException("Exit position must be inside the map");
             }
         }
+
         private bool IsValidCoord(int X, int Y)
         {
             return X <= MaxPosition.X

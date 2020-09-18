@@ -1,5 +1,4 @@
-﻿using Common;
-using Common.Enums;
+﻿using Common.Enums;
 
 namespace EscapeMines
 {

@@ -197,7 +197,7 @@ namespace Tests.Data
 
             Assert.ThrowsException<ArgumentException>(() => configParser.ParseConfig());
         }
-        
+
         [TestMethod]
         public void ParseConfig_InvalidMove_ShouldThrowArgumentException()
         {
@@ -269,7 +269,7 @@ namespace Tests.Data
             GameConfig expectedConfig =
                 new GameConfig()
                 {
-                    BoardSize = new Position( 5, 4),
+                    BoardSize = new Position(5, 4),
                     MinePositions =
                         new List<Position>()
                         {

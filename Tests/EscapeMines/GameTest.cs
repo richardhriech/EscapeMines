@@ -172,7 +172,7 @@ namespace Tests.EscapeMines
             var board = new Board(config)
             {
                 MaxPosition = new Position(5, 5),
-                Player = new Player(new Position(3, 3), Direction.East),
+                Player = new Player(new Position(3, 3), Direction.East)
             };
 
             var game = new Game { Board = board, Moves = new List<Move>() { Move.Move } };
@@ -190,7 +190,7 @@ namespace Tests.EscapeMines
             var board = new Board(config)
             {
                 MaxPosition = new Position(5, 5),
-                Player = new Player(new Position(3, 3), Direction.South),
+                Player = new Player(new Position(3, 3), Direction.South)
             };
 
             var game = new Game { Board = board, Moves = new List<Move>() { Move.Move } };
@@ -208,7 +208,7 @@ namespace Tests.EscapeMines
             var board = new Board(config)
             {
                 MaxPosition = new Position(5, 5),
-                Player = new Player(new Position(3, 3), Direction.West),
+                Player = new Player(new Position(3, 3), Direction.West)
             };
 
             var game = new Game { Board = board, Moves = new List<Move>() { Move.Move } };

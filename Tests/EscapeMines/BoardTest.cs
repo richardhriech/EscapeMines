@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Common;
 using Common.Enums;
-using Data;
 using EscapeMines;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -21,7 +20,7 @@ namespace Tests.EscapeMines
 
             Assert.ThrowsException<ArgumentException>(() => board.BuildBoard());
         }
-        
+
         [TestMethod]
         public void BuildBoard_ConfigBoardSizeZero_ShouldThrowArgumentException()
         {
@@ -62,7 +61,7 @@ namespace Tests.EscapeMines
         }
 
         [TestMethod]
-        public void BuildBoard_MinePoisitionsSetInConfig_ShouldReturnValidMineFieldCount()
+        public void BuildBoard_MinePositionsSetInConfig_ShouldReturnValidMineFieldCount()
         {
             var config =
                 new GameConfig()
@@ -89,7 +88,7 @@ namespace Tests.EscapeMines
         }
 
         [TestMethod]
-        public void BuildBoard_OneMinePoisitionSetInConfig_ShouldReturnValidMineField()
+        public void BuildBoard_OneMinePositionSetInConfig_ShouldReturnValidMineField()
         {
             var config =
                 new GameConfig()
@@ -120,7 +119,7 @@ namespace Tests.EscapeMines
                 new GameConfig()
                 {
                     BoardSize = new Position(5, 4),
-                    MinePositions = new List<Position>() { new Position(1, -1), },
+                    MinePositions = new List<Position>() { new Position(1, -1) },
                     ExitPosition = new Position(4, 2),
                     StartPosition = new Position(0, 1),
                     StartDirection = Direction.North,
@@ -131,6 +130,7 @@ namespace Tests.EscapeMines
 
             Assert.ThrowsException<ArgumentException>(() => board.BuildBoard());
         }
+
         [TestMethod]
         public void BuildBoard_MinePositionInConfigHigherThanMax_ShouldThrowArgumentException()
         {
@@ -157,7 +157,7 @@ namespace Tests.EscapeMines
                 new GameConfig()
                 {
                     BoardSize = new Position(5, 4),
-                    MinePositions = new List<Position>() { new Position(1, 1), },
+                    MinePositions = new List<Position>() { new Position(1, 1) },
                     ExitPosition = new Position(-4, 2),
                     StartPosition = new Position(0, 1),
                     StartDirection = Direction.North,
@@ -176,7 +176,7 @@ namespace Tests.EscapeMines
                 new GameConfig()
                 {
                     BoardSize = new Position(5, 4),
-                    MinePositions = new List<Position>() { new Position(1, 1), },
+                    MinePositions = new List<Position>() { new Position(1, 1) },
                     ExitPosition = new Position(5, 2),
                     StartPosition = new Position(0, 1),
                     StartDirection = Direction.North,
@@ -187,6 +187,7 @@ namespace Tests.EscapeMines
 
             Assert.ThrowsException<ArgumentException>(() => board.BuildBoard());
         }
+
         [TestMethod]
         public void BuildBoard_StartPositionInConfigSmallerThanMin_ShouldThrowArgumentException()
         {
@@ -194,7 +195,7 @@ namespace Tests.EscapeMines
                 new GameConfig()
                 {
                     BoardSize = new Position(5, 4),
-                    MinePositions = new List<Position>() { new Position(1, 1), },
+                    MinePositions = new List<Position>() { new Position(1, 1) },
                     ExitPosition = new Position(4, 2),
                     StartPosition = new Position(0, -1),
                     StartDirection = Direction.North,
@@ -213,7 +214,7 @@ namespace Tests.EscapeMines
                 new GameConfig()
                 {
                     BoardSize = new Position(5, 4),
-                    MinePositions = new List<Position>() { new Position(1, 1), },
+                    MinePositions = new List<Position>() { new Position(1, 1) },
                     ExitPosition = new Position(3, 2),
                     StartPosition = new Position(5, 1),
                     StartDirection = Direction.North,

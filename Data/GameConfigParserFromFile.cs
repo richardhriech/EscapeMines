@@ -92,7 +92,6 @@ namespace Data
                 bool isXParseSuccessful = Int32.TryParse(rawCoords[0], out int x);
                 bool isYParseSuccessful = Int32.TryParse(rawCoords[1], out int y);
 
-
                 if (!isXParseSuccessful || !isYParseSuccessful)
                 {
                     throw new ArgumentException("Invalid mine positions.");
