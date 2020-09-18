@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common;
+using Common.Enums;
 using Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -176,6 +177,28 @@ namespace Tests.Data
         }
 
         [TestMethod]
+        public void ParseConfig_EmptyMoves_ShouldThrowArgumentException()
+        {
+            var dataProvider = new Mock<IDataProvider>();
+            dataProvider
+                .Setup(provider => provider.GetRawData())
+                .Returns(
+                    new List<string>()
+                    {
+                        "5 4",
+                        "1,1 1,3 3,3",
+                        "4 2",
+                        "0 1 N",
+                        ""
+                    }
+                );
+
+            IGameConfigParser configParser = new GameConfigParserFromFile(dataProvider.Object);
+
+            Assert.ThrowsException<ArgumentException>(() => configParser.ParseConfig());
+        }
+        
+        [TestMethod]
         public void ParseConfig_InvalidMove_ShouldThrowArgumentException()
         {
             var dataProvider = new Mock<IDataProvider>();
@@ -195,6 +218,31 @@ namespace Tests.Data
             IGameConfigParser configParser = new GameConfigParserFromFile(dataProvider.Object);
 
             Assert.ThrowsException<ArgumentException>(() => configParser.ParseConfig());
+        }
+
+        [TestMethod]
+        public void ParseConfig_MultipleLinesOfMoves_ShouldReturnValidMoveCount()
+        {
+            var dataProvider = new Mock<IDataProvider>();
+            dataProvider
+                .Setup(provider => provider.GetRawData())
+                .Returns(
+                    new List<string>()
+                    {
+                        "5 4",
+                        "1,1 1,3 3,3",
+                        "4 2",
+                        "0 1 N",
+                        "R M L M M",
+                        "R M L M M",
+                        "R M R M M"
+                    }
+                );
+
+            IGameConfigParser configParser = new GameConfigParserFromFile(dataProvider.Object);
+            GameConfig actualConfig = configParser.ParseConfig();
+
+            Assert.AreEqual(15, actualConfig.Moves.Count);
         }
 
         [TestMethod]
@@ -221,16 +269,16 @@ namespace Tests.Data
             GameConfig expectedConfig =
                 new GameConfig()
                 {
-                    BoardSize = new Position() { X = 5, Y = 4 },
+                    BoardSize = new Position( 5, 4),
                     MinePositions =
                         new List<Position>()
                         {
-                            new Position() { X = 1, Y = 1 },
-                            new Position() { X = 1, Y = 3 },
-                            new Position() { X = 3, Y = 3 }
+                            new Position(1, 1),
+                            new Position(1, 3),
+                            new Position(3, 3)
                         },
-                    ExitPosition = new Position() { X = 4, Y = 2 },
-                    StartPosition = new Position() { X = 0, Y = 1 },
+                    ExitPosition = new Position(4, 2),
+                    StartPosition = new Position(0, 1),
                     StartDirection = Direction.North,
                     Moves =
                         new List<Move>()

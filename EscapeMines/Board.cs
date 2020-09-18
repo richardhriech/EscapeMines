@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using Common;
+using Common.Enums;
 
 namespace EscapeMines
 {
@@ -9,14 +10,14 @@ namespace EscapeMines
     {
         private readonly GameConfig config;
 
-        private readonly Position MinPosition = new Position
-            { X = 0, Y = 0 };
-
         public Board(GameConfig config)
         {
             this.config = config;
             Fields = new List<Field>();
+            MinPosition = new Position(0, 0);
         }
+
+        public Position MinPosition { get; }
 
         public Position MaxPosition { get; set; }
 
@@ -26,6 +27,11 @@ namespace EscapeMines
 
         public void BuildBoard()
         {
+            if (config is null)
+            {
+                throw new ArgumentException("Game config cannot be null");
+            }
+
             SetMaxPosition();
 
             SetMineFields();
@@ -47,7 +53,7 @@ namespace EscapeMines
             if (config.BoardSize.X < 1 || config.BoardSize.Y < 1)
                 throw new ArgumentException("Board size must be at least 1x1.");
 
-            MaxPosition = new Position() { X = config.BoardSize.X - 1, Y = config.BoardSize.Y - 1 };
+            MaxPosition = new Position(config.BoardSize.X - 1, config.BoardSize.Y - 1);
         }
 
         private void SetMineFields()
@@ -71,7 +77,6 @@ namespace EscapeMines
         }
         private bool IsValidCoord(int X, int Y)
         {
-
             return X <= MaxPosition.X
                 && Y <= MaxPosition.Y
                 && X >= MinPosition.X

@@ -1,16 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Common;
+using Common.Enums;
 
 namespace Data
 {
     public class GameConfigParserFromFile : IGameConfigParser
     {
-        private const int RequiredLineCount = 5;
-        private const int StartDataCount = 3;
         private const string SpaceSeparator = " ";
         private const string CommaSeparator = ",";
-
+        private const short RequiredLineCount = 5;
+        private const short StartDataCount = 3;
+        private const short MovesStartingIndex = 4;
+        private const short BoardSizeIndex = 0;
+        private const short MinePositionsIndex = 1;
+        private const short ExitPositionIndex = 2;
+        private const short StartPositionIndex = 3;
         private readonly IDataProvider dataProvider;
 
         public GameConfigParserFromFile(IDataProvider dataProvider)
@@ -23,22 +29,27 @@ namespace Data
             List<string> rawData = dataProvider.GetRawData();
             var config = new GameConfig();
 
-            if (rawData.Count != RequiredLineCount)
+            if (rawData.Count < RequiredLineCount)
             {
                 throw new ArgumentException(
-                    "Invalid data format. The config file should " +
-                    $"contain exactly {RequiredLineCount} lines");
+                    "Invalid data format. The config file should " + $"contain exactly {RequiredLineCount} lines"
+                );
             }
 
-            config.BoardSize = ParsePosition(rawData[0]);
-            config.MinePositions = ParseMinePositions(rawData[1]);
-            config.ExitPosition = ParsePosition(rawData[2]);
+            config.BoardSize = ParsePosition(rawData[BoardSizeIndex]);
+            config.MinePositions = ParseMinePositions(rawData[MinePositionsIndex]);
+            config.ExitPosition = ParsePosition(rawData[ExitPositionIndex]);
 
-            string[] startRawData = GetStartRawData(rawData[3]);
+            string[] startRawData = GetStartRawData(rawData[StartPositionIndex]);
             config.StartPosition = ParsePosition(startRawData[0] + SpaceSeparator + startRawData[1]);
             config.StartDirection = ParseDirection(startRawData[2]);
 
-            config.Moves = GetMoves(rawData[4]);
+            config.Moves = new List<Move>();
+
+            for (int i = MovesStartingIndex; i < rawData.Count; i++)
+            {
+                config.Moves.AddRange(GetMoves(rawData[i]));
+            }
 
             return config;
         }
@@ -60,11 +71,7 @@ namespace Data
                 throw new ArgumentException("Invalid position format");
             }
 
-            return new Position()
-            {
-                X = x,
-                Y = y
-            };
+            return new Position(x, y);
         }
 
 
@@ -91,7 +98,7 @@ namespace Data
                     throw new ArgumentException("Invalid mine positions.");
                 }
 
-                minePositions.Add(new Position(){ X = x, Y = y });
+                minePositions.Add(new Position(x, y));
             }
 
             return minePositions;
@@ -99,14 +106,21 @@ namespace Data
 
         private Direction ParseDirection(string rawDirection)
         {
-            bool isSuccess = Enum.TryParse(rawDirection, out Direction direction);
+            bool isSuccess = Enum.TryParse(rawDirection, out FileDirection fileDirection);
 
-            /*if (!isSuccess)
+            if (!isSuccess)
             {
                 throw new ArgumentException("Invalid direction.");
-            }*/
+            }
 
-            return direction;
+            return fileDirection switch
+            {
+                FileDirection.N => Direction.North,
+                FileDirection.E => Direction.East,
+                FileDirection.S => Direction.South,
+                FileDirection.W => Direction.West,
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
 
         private Move ParseMove(string rawMove)
@@ -115,7 +129,7 @@ namespace Data
 
             if (!isSuccess)
             {
-                throw new ArgumentException("Invalid move.");
+                throw new ArgumentException("Invalid move in file.");
             }
 
             return fileMove switch
@@ -141,13 +155,14 @@ namespace Data
 
         private List<Move> GetMoves(string rawData)
         {
-            string[] splitValues = rawData.Split(SpaceSeparator);
-            List<Move> moves = new List<Move>();
-
-            foreach (string value in splitValues)
+            if (rawData is null || rawData == String.Empty)
             {
-                moves.Add(ParseMove(value));
+                throw new ArgumentException("Moves can't be empty");
             }
+
+            string[] splitValues = rawData.Split(SpaceSeparator);
+
+            List<Move> moves = splitValues.Select(value => ParseMove(value)).ToList();
 
             return moves;
         }

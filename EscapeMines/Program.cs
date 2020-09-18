@@ -1,19 +1,18 @@
 ﻿using System;
 
-using Data;
-
-
-
 namespace EscapeMines
 {
-    class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
             Console.WriteLine("Enter path for the game config file: ");
             string gameConfigFilePath = Console.ReadLine();
-            var game = Game.Instance;
+            var game = new Game();
             game.Setup(gameConfigFilePath);
+            game.PlayMoves();
+            Console.WriteLine("Type anything to quit.");
+            Console.ReadLine();
         }
     }
 }

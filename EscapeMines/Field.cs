@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Enums;
 
 namespace EscapeMines
 {
@@ -14,5 +15,12 @@ namespace EscapeMines
         public Position Position { get; set; }
 
         public FieldType FieldType { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Field otherField 
+                && otherField.Position == Position 
+                && otherField.FieldType == FieldType;
+        }
     }
 }
