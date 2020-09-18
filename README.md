@@ -1,7 +1,7 @@
 # EscapeMines
 Home assignment
 
-This is a home assignmert for a job application.
+This is a home assignment for a job application.
 
 Things that can be improved:
 - Using dependency injection for even better separation of concerns. The size and the scope of this project didn't require DI,
