@@ -1,7 +1,7 @@
 # EscapeMines
 Home assignment for a job application.
 
-## Things that can be improved:
+## Things that can be improved
 - Using dependency injection for even better separation of concerns. The size and the scope of this project didn't require DI,
 but if it was needed, it could be easily implemented in the current structure.
 - Using automapper. There were only a few cases where it could have been useful, so I did the mapping manually. Again, if
@@ -11,7 +11,7 @@ Given time constraint, the number of the tests (39) and the coverage (93%) seems
 
 
 
-# Requirements:
+# Requirements
 ## Escape Mines
 A turtle must walk through a minefield. Write a program (console application) that will
 read the initial game settings and one or more sequences of moves. For each move
